@@ -4,7 +4,7 @@
 
 **Final 04/06/2018**
 
-Cube rotates around another cube which also rotates around a third cube
+Two cubes rotates around another
 
 Change color & sens of rotate on mouse entered & clicked
 
