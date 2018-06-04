@@ -8,8 +8,9 @@
 
 package rotationCube;
 
-import java.awt.*;
 import java.awt.event.*;
+
+import javax.swing.JFrame;
 
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.glu.*;
@@ -25,8 +26,11 @@ public class Main implements GLEventListener {
     	
     	GLProfile glp = GLProfile.get(GLProfile.GL2);
         GLCapabilities glca = new GLCapabilities(glp);
+        
         GLCanvas glc = new GLCanvas(glca);
-        Frame f = new Frame("Rotation");
+        c1 = new Cube();
+        
+       
         glc.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent arg0) {
@@ -38,36 +42,35 @@ public class Main implements GLEventListener {
         		System.out.println("Mouse Entered Frame");
         	}
         });
+        glc.addGLEventListener(new Main());
+        
+        final JFrame f = new JFrame("Rotation");
         f.addWindowListener(new WindowAdapter() {
 	         public void windowClosing(WindowEvent we) {
 	        	 System.exit(0);
 	         }
 	    });
         
-        glc.addGLEventListener(new Main());
-        f.add(glc);
-        f.setSize(1200, 740);
-        final FPSAnimator animator = new FPSAnimator(glc, 300,true);
-
-        f.setLocationRelativeTo(null);
+        f.getContentPane().add(glc);
+        
+        f.setSize(1200, 800);
         f.setVisible(true);
+        
+        final FPSAnimator animator = new FPSAnimator(glc, 300,true);
+        
         animator.start();
     }
 
     public void init(GLAutoDrawable d) {
 
         GL2 gl = d.getGL().getGL2();
-
-        gl.setSwapInterval(1);
-
-        c1 = new Cube();
-        
         gl.glClearColor(0, 0, 0, 0);
         gl.glShadeModel(GL2.GL_SMOOTH);
         gl.glEnable(GL.GL_DEPTH_TEST);
         gl.glDepthFunc(GL2.GL_LEQUAL);
         gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
         gl.glClearDepth(1);
+        
     }
 
     public void reshape(GLAutoDrawable d, int x, int y, int w, int h) {
