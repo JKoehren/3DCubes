@@ -1,3 +1,11 @@
+/* UPMC - 2017 / 2018 */
+/* Developer: JKoehren */
+/* GitHub : https://github.com/JKoehren/3DCubes */
+/* Sources:
+ * https://www.tutorialspoint.com/jogl/jogl_3d_cube.htm
+ * https://www.tutorialspoint.com/awt/awt_mouse_listener.htm
+ */
+
 package rotationCube;
 
 import java.awt.*;
