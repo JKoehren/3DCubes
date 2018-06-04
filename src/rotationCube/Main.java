@@ -35,15 +35,21 @@ public class Main implements GLEventListener {
         GLCanvas glc = new GLCanvas(glca);
         c1 = new Cube();
         c1.setSize(1.5f);
+        c1.shuffleColor();
         
         c2 = new Cube();
-        c2.setPos(3f);
+        c2.setPos(9f);
         c2.setVit(0.5f);
+        c2.orbit();
+        c2.shuffleColor();
         
         c3 = new Cube();
-        c3.setPos(-3f);
+        c2.setSize(0.4f);
         c3.setVit(2f);
-        c3.setSize(0.5f);
+        c3.setPos(4f);
+        c3.orbit();
+        c3.orbit();
+        c3.shuffleColor();
         
        
         glc.addMouseListener(new MouseAdapter() {
@@ -52,6 +58,7 @@ public class Main implements GLEventListener {
         		System.out.println("Mouse Clicked");
         		c1.eventChange();
         		c2.eventChange();
+        		c3.eventChange();
         	}
 
         	@Override
@@ -59,6 +66,7 @@ public class Main implements GLEventListener {
         		System.out.println("Mouse Entered Frame");
         		c1.eventChange();
         		c2.eventChange();
+        		c3.eventChange();
         	}
         });
         glc.addGLEventListener(new Main());
@@ -105,7 +113,7 @@ public class Main implements GLEventListener {
         gl.glLoadIdentity();
         
         GLU glu = new GLU();
-        glu.gluPerspective(120, ratio, 1, 20);
+        glu.gluPerspective(130, ratio, 1, 20);
         
         gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity();
@@ -119,9 +127,11 @@ public class Main implements GLEventListener {
         gl.glLoadIdentity();
         
         c1.display(d);
+        gl.glLoadIdentity();
         c2.display(d);
+        gl.glLoadIdentity();
+        c3.setAnotherPos(c2);
         c3.display(d);
-        
         gl.glFlush();
 
     }

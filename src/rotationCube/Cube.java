@@ -17,6 +17,10 @@ public class Cube {
    private float rotation = 0.0f;
    private float vitesse = -0.5f;
    private float position = 0;
+   private float angle = 0;
+   private float posX = 0;
+   private float posY = 0;
+   private int orbit = 0;
    private float size = 1;
    private int[][] color = {
 		   {0,0,1},
@@ -29,10 +33,16 @@ public class Cube {
    };
       
    public void display(GLAutoDrawable d) {
+	   
+	  if (angle == 360 || angle == -360) angle = 0;
+	  if (orbit == 3) orbit = 1;
+	  
+	  
 	
       final GL2 gl = d.getGL().getGL2();
-
-      gl.glTranslatef(position, position, -5 ); 
+      
+      gl.glTranslatef((float) Math.cos(Math.toRadians(angle)) * position + posX, (float) Math.sin(Math.toRadians(angle)) * position + posY, -5 ); 
+      
 
       gl.glRotatef(rotation, 1, 1, 1);
  
@@ -90,6 +100,13 @@ public class Cube {
       gl.glEnd();
 		
       rotation += vitesse;
+      
+      if (orbit == 1) {
+    	  angle++;
+      } else {
+    	  angle--;
+      }
+      
    }
    
    public void setPos(float pos) {
@@ -100,13 +117,16 @@ public class Cube {
    } 
    public void setSize(float s) {
 	   this.size = s;
+   }
+   public void orbit() {
+	   this.orbit++;
    } 
    public void eventChange() {
 	   this.vitesse = this.vitesse * (float) -1;
 	   this.shuffleColor();
+	   this.orbit();
    }
-   
-   private void shuffleColor() {
+   public void shuffleColor() {
        int index;
        int[] temp;
        Random random = new Random();
@@ -116,6 +136,16 @@ public class Cube {
            this.color[index] = this.color[i];
            this.color[i] = temp;
        }
+   }
+   public void setAnotherPos(Cube c) {
+	   this.posX = c.getX();
+	   this.posY = c.getY();
+   }
+   public float getX() {
+	   return ((float) Math.cos(Math.toRadians(angle)) * position + posX);
+   }
+   public float getY() {
+	   return ((float) Math.sin(Math.toRadians(angle)) * position + posY);
    }
 	
 }
