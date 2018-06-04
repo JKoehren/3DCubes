@@ -21,25 +21,44 @@ import com.jogamp.opengl.util.*;
 public class Main implements GLEventListener {
 	    
     static Cube c1;
+    static Cube c2;
+    static Cube c3;
 
     public static void main(String[] args) {
+    	
+    	System.err.close();
+        System.setErr(System.out);   	
     	
     	GLProfile glp = GLProfile.get(GLProfile.GL2);
         GLCapabilities glca = new GLCapabilities(glp);
         
         GLCanvas glc = new GLCanvas(glca);
         c1 = new Cube();
+        c1.setSize(1.5f);
+        
+        c2 = new Cube();
+        c2.setPos(3f);
+        c2.setVit(0.5f);
+        
+        c3 = new Cube();
+        c3.setPos(-3f);
+        c3.setVit(2f);
+        c3.setSize(0.5f);
         
        
         glc.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent arg0) {
         		System.out.println("Mouse Clicked");
+        		c1.eventChange();
+        		c2.eventChange();
         	}
 
         	@Override
         	public void mouseEntered(MouseEvent arg0) {
         		System.out.println("Mouse Entered Frame");
+        		c1.eventChange();
+        		c2.eventChange();
         	}
         });
         glc.addGLEventListener(new Main());
@@ -86,7 +105,7 @@ public class Main implements GLEventListener {
         gl.glLoadIdentity();
         
         GLU glu = new GLU();
-        glu.gluPerspective(45, ratio, 1, 20);
+        glu.gluPerspective(120, ratio, 1, 20);
         
         gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity();
@@ -100,6 +119,8 @@ public class Main implements GLEventListener {
         gl.glLoadIdentity();
         
         c1.display(d);
+        c2.display(d);
+        c3.display(d);
         
         gl.glFlush();
 
